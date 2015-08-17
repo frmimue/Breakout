@@ -8,7 +8,12 @@
 #include <map>
 #include <glm\glm.hpp>
 
-#include "Glyph.h"
+struct Glyph
+{
+	float id, xPos, yPos, width, height, xOffset, yOffset, xAdvance;
+	Glyph(std::map<std::string, int> character);
+	~Glyph();
+};
 
 class Font
 {

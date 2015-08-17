@@ -22,13 +22,11 @@
     <ClCompile Include="..\..\..\..\..\..\..\Dev\lib\lodepng.cpp" />
     <ClCompile Include="Breakout.cpp" />
     <ClCompile Include="Font.cpp" />
-    <ClCompile Include="Glyph.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Breakout.h" />
     <ClInclude Include="Font.h" />
-    <ClInclude Include="Glyph.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{2F54102A-3078-4809-81C1-60CD58E82D3F}</ProjectGuid>

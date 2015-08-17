@@ -10,6 +10,21 @@
 #include <glm\gtc\matrix_transform.hpp>
 #include <glm\gtc\type_ptr.hpp>
 
+Glyph::Glyph(std::map<std::string, int> character)
+{
+	xPos = (float)character.at("x");
+	yPos = (float)character.at("y");
+	width = (float)character.at("width");
+	height = (float)character.at("height");
+	xOffset = (float)character.at("xoffset");
+	yOffset = (float)character.at("yoffset");
+	xAdvance = (float)character.at("xadvance");
+}
+
+Glyph::~Glyph()
+{
+}
+
 Font::Font(glm::vec2 resolution) : resolution(resolution)
 {
 	// Build and compile our shader program
