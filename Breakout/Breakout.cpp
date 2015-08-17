@@ -21,6 +21,9 @@ Breakout::Breakout(glm::vec2 resolution) : resolution(resolution)
 
 	font = new Font(resolution);
 	font->loadFNT("comic_sans");
+
+	sprite = new Sprite(resolution);
+	sprite->load("comic_sans.png");
 }
 
 
@@ -28,6 +31,7 @@ Breakout::~Breakout()
 {
 	glfwTerminate();
 	delete font;
+	delete sprite;
 }
 
 void Breakout::run()
@@ -39,7 +43,9 @@ void Breakout::run()
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		font->render("Hello World!", 200, 200, 16.0f, 0.0f, 0.0f, 1.0f);
+		//font->render("Hello World!", 200, 200, 16.0f, 0.0f, 0.0f, 1.0f);
+
+		sprite->render(glm::vec2(100, 100), 200, 200, glm::vec3(1.0f, 0.0f, 0.0f));
 
 		glfwSwapBuffers(window);
 	}
