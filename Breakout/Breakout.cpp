@@ -18,12 +18,16 @@ Breakout::Breakout(glm::vec2 resolution) : resolution(resolution)
 	glEnable(GL_MULTISAMPLE);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	font = new Font(resolution);
+	font->loadFNT("comic_sans");
 }
 
 
 Breakout::~Breakout()
 {
 	glfwTerminate();
+	delete font;
 }
 
 void Breakout::run()
@@ -34,6 +38,8 @@ void Breakout::run()
 
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
+
+		font->render("Hello World!", 200, 200, 16.0f, 0.0f, 0.0f, 1.0f);
 
 		glfwSwapBuffers(window);
 	}

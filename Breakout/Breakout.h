@@ -7,11 +7,14 @@
 #include <GLFW\glfw3.h>
 #include <glm\glm.hpp>
 
+#include "Font.h"
+
 class Breakout
 {
 private:
 	GLFWwindow* window = nullptr;
 	glm::vec2 resolution;
+	Font* font;
 public:
 	Breakout(glm::vec2 resolution);
 	~Breakout();
