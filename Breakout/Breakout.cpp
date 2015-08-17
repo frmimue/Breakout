@@ -23,7 +23,7 @@ Breakout::Breakout(glm::vec2 resolution) : resolution(resolution)
 	font->loadFNT("comic_sans");
 
 	sprite = new Sprite(resolution);
-	sprite->load("comic_sans.png");
+	sprite->load("block.png");
 }
 
 

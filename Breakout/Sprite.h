@@ -44,7 +44,6 @@ private:
 		"uniform float smoothing;\n"
 		"void main()\n"
 		"{\n"
-		"float alpha = texture(ourTexture, TexCoord).a;\n"		
-		"color = vec4(ourColor.rgb, alpha);\n"
+		"color = texture(ourTexture, TexCoord) * vec4(ourColor, 1.0f);\n"
 		"}\n\0";
 };
