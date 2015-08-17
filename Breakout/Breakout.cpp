@@ -12,7 +12,7 @@ Breakout::Breakout(glm::vec2 resolution) : resolution(resolution)
 	glewExperimental = GL_TRUE;
 	glewInit();
 
-	glViewport(0, 0, resolution.x, resolution.y);
+	glViewport(0, 0, static_cast<int>(resolution.x), static_cast<int>(resolution.y));
 
 	glfwSwapInterval(0);
 	glEnable(GL_MULTISAMPLE);
@@ -48,7 +48,7 @@ void Breakout::createWindowContext()
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 	glfwWindowHint(GLFW_SAMPLES, 4);
 
-	window = glfwCreateWindow(resolution.x, resolution.y, "LearnOpenGL", nullptr, nullptr);
+	window = glfwCreateWindow(static_cast<int>(resolution.x), static_cast<int>(resolution.y), "LearnOpenGL", nullptr, nullptr);
 	glfwMakeContextCurrent(window);
 }
 
