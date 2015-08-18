@@ -19,7 +19,7 @@ public:
 	Sprite(glm::vec2 resolution);
 	~Sprite();
 	void load(std::string filePath);
-	void render(glm::vec2 position, float sizeX, float sizeY, glm::vec3 color);
+	void render(glm::vec2 position, glm::vec2 size, glm::vec3 color);
 
 private:
 	const GLchar* vertexShaderSource = "#version 330 core\n"

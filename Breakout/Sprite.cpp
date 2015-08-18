@@ -115,13 +115,13 @@ void Sprite::load(std::string filePath)
 	glBindTexture(GL_TEXTURE_2D, 0); // Unbind texture when done, so we won't accidentily mess up our texture.
 }
 
-void Sprite::render(glm::vec2 position, float sizeX, float sizeY, glm::vec3 color)
+void Sprite::render(glm::vec2 position, glm::vec2 size, glm::vec3 color)
 {
 	// Bind Texture
 	glBindTexture(GL_TEXTURE_2D, texture);
 
 	// Draw our first triangle
-	glm::mat4 projection = glm::ortho(0.0f, resolution.x, 0.0f, resolution.y);
+	glm::mat4 projection = glm::ortho(0.0f, resolution.x, resolution.y, 0.0f);
 
 	glUseProgram(shaderProgram);
 	glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
@@ -131,10 +131,10 @@ void Sprite::render(glm::vec2 position, float sizeX, float sizeY, glm::vec3 colo
 
 	GLfloat vertices[] = {
 		// Positions											// Texture Coords
-		position.x + sizeX, position.y + sizeY, 0.0f,		  1.0f,	0.0f, // Top Right
-		position.x + sizeX, position.y, 0.0f,				  1.0f, 1.0f, // Bottom Right
+		position.x + size.x, position.y + size.y, 0.0f,		  1.0f,	0.0f, // Top Right
+		position.x + size.x, position.y, 0.0f,				  1.0f, 1.0f, // Bottom Right
 		position.x, position.y, 0.0f,						  0.0f, 1.0f, // Bottom Left
-		position.x,  position.y + sizeY, 0.0f,				  0.0f, 0.0f // Top Left 
+		position.x,  position.y + size.y, 0.0f,				  0.0f, 0.0f // Top Left 
 	};
 
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);

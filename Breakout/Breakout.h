@@ -9,6 +9,7 @@
 
 #include "Font.h"
 #include "Sprite.h"
+#include "Level.h"
 
 class Breakout
 {
@@ -16,7 +17,8 @@ private:
 	GLFWwindow* window = nullptr;
 	glm::vec2 resolution;
 	Font* font;
-	Sprite* sprite;
+	Sprite* sprite[5];
+	Level level;
 public:
 	Breakout(glm::vec2 resolution);
 	~Breakout();
