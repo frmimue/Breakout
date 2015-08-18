@@ -10,6 +10,7 @@
 #include "Font.h"
 #include "Sprite.h"
 #include "Level.h"
+#include "Ball.h"
 
 class Breakout
 {
@@ -20,6 +21,7 @@ private:
 	Sprite* sprite[5];
 	Level level;
 public:
+	static Ball* ball;
 	Breakout(glm::vec2 resolution);
 	~Breakout();
 	void run();
