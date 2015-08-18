@@ -28,5 +28,7 @@ public:
 private:
 	void createWindowContext();
 	void setCallbacks();
+	void collisionCheck();
+	bool collisionAABB(glm::vec4 a, glm::vec4 b);
 };
 

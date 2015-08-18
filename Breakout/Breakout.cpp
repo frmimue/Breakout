@@ -1,5 +1,7 @@
 #include "Breakout.h"
 
+#include <iostream>
+
 Ball* Breakout::ball = nullptr;
 
 Breakout::Breakout(glm::vec2 resolution) : resolution(resolution), level(resolution)
@@ -42,6 +44,8 @@ void Breakout::run()
 	{
 		ball->update();
 
+		collisionCheck();
+
 		glfwPollEvents();
 
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
@@ -79,4 +83,27 @@ void Breakout::setCallbacks() {
 	};
 
 	glfwSetKeyCallback(window, key_callback);
+}
+
+void Breakout::collisionCheck()
+{
+
+	for (auto it = level.blocks.begin(); it != level.blocks.end(); it++) {
+		if (collisionAABB((*it)->AABB(), ball->AABB())) {
+			it = level.blocks.erase(it);
+			if (it == level.blocks.end())
+				break;
+		}
+	}
+	if (level.blocks.size() == 0)
+		std::cout << "WON!!!" << std::endl;
+}
+
+bool Breakout::collisionAABB(glm::vec4 a, glm::vec4 b)
+{
+	bool collisionX = a.z >= b.x &&
+       b.z >= a.x;
+	bool collisionY = a.w >= b.y &&
+		b.w >= a.y;
+	return collisionX && collisionY;
 }

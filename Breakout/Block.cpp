@@ -17,3 +17,12 @@ void Block::render()
 {
 	sprite->render(position, size, color);
 }
+
+glm::vec4 Block::AABB()
+{
+	return glm::vec4(position.x, position.y, position.x + size.x, position.y + size.y);
+}
+
+void Block::hit() {
+	this->color = glm::vec3(1.0f, 0.0f, 0.0f);
+}

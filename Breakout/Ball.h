@@ -16,4 +16,5 @@ public:
 	void render();
 	void update();
 	void start(glm::vec2 start);
+	glm::vec4 AABB();
 };

@@ -32,3 +32,8 @@ void Ball::start(glm::vec2 start)
 {
 	speed = start;
 }
+
+glm::vec4 Ball::AABB()
+{
+	return glm::vec4(position.x, position.y, position.x + size.x, position.y + size.y);
+}

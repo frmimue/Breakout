@@ -9,9 +9,9 @@
 class Level
 {
 private:
-	std::vector<Block*> blocks;
 	glm::vec2 resolution;
 public:
+	std::vector<Block*> blocks;
 	Level(glm::vec2 resolution);
 	~Level();
 	void render();
