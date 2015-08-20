@@ -2,8 +2,6 @@
 
 #include <iostream>
 
-Ball* Breakout::ball = nullptr;
-
 Breakout::Breakout(glm::vec2 resolution) : resolution(resolution), level(resolution)
 {
 	glfwInit();
@@ -27,7 +25,9 @@ Breakout::Breakout(glm::vec2 resolution) : resolution(resolution), level(resolut
 
 	level.load("level.txt");
 
-	Breakout::ball = new Ball(glm::vec2(resolution.x / 2.0f, resolution.y - 50.0f), glm::vec2(25.0f, 25.0f), glm::vec3(1.0f, 1.0f, 1.0f), resolution);
+	ball = new Ball(glm::vec2(resolution.x / 2.0f, resolution.y - 75.0f), glm::vec2(25.0f, 25.0f), glm::vec3(1.0f, 1.0f, 1.0f), resolution);
+
+	paddle = new Paddle(glm::vec2(resolution.x / 2.0f - 75.0f/2.0f, resolution.y - 50.0f), glm::vec2(100.0f, 25.0f), glm::vec3(0.0f, 1.0f, 1.0f), resolution);
 }
 
 
@@ -36,12 +36,14 @@ Breakout::~Breakout()
 	glfwTerminate();
 	delete font;
 	delete ball;
+	delete paddle;
 }
 
 void Breakout::run()
 {
 	while (!glfwWindowShouldClose(window))
 	{
+		paddle->update();
 		ball->update();
 
 		collisionCheck();
@@ -52,6 +54,8 @@ void Breakout::run()
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		level.render();
+
+		paddle->render();
 
 		ball->render();
 
@@ -74,12 +78,24 @@ void Breakout::createWindowContext()
 
 void Breakout::setCallbacks() {
 
+	glfwSetWindowUserPointer(window, this);
+
 	GLFWkeyfun key_callback = [](GLFWwindow* window, int key, int scancode, int action, int mode)
 	{
+		Breakout* _this = static_cast<Breakout*>(glfwGetWindowUserPointer(window));
+
 		if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 			glfwSetWindowShouldClose(window, GL_TRUE);
 		if (key == GLFW_KEY_SPACE && action == GLFW_PRESS)
-			Breakout::ball->start(glm::vec2(1.0f, -1.0f));
+			_this->ball->start(glm::vec2(1.0f, -1.0f));
+		if (key == GLFW_KEY_LEFT && action == GLFW_PRESS)
+			_this->paddle->move(glm::vec2(-1.0f, 0.0f));
+		if (key == GLFW_KEY_LEFT && action == GLFW_RELEASE)
+			_this->paddle->move(glm::vec2(1.0f, 0.0f));
+		if (key == GLFW_KEY_RIGHT && action == GLFW_PRESS)
+			_this->paddle->move(glm::vec2(1.0f, 0.0f));
+		if (key == GLFW_KEY_RIGHT && action == GLFW_RELEASE)
+			_this->paddle->move(glm::vec2(-1.0f, 0.0f));
 	};
 
 	glfwSetKeyCallback(window, key_callback);
@@ -87,10 +103,13 @@ void Breakout::setCallbacks() {
 
 void Breakout::collisionCheck()
 {
+	if (collisionAABB(paddle->AABB(), ball->AABB()))
+		ball->collide();
 
 	for (auto it = level.blocks.begin(); it != level.blocks.end(); it++) {
 		if (collisionAABB((*it)->AABB(), ball->AABB())) {
 			it = level.blocks.erase(it);
+			ball->collide();
 			if (it == level.blocks.end())
 				break;
 		}

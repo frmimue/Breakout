@@ -18,6 +18,10 @@ void Ball::render()
 	sprite->render(position, size, color);
 }
 
+void Ball::collide() {
+	speed.y *= -1.0f;
+}
+
 void Ball::update()
 {
 	if (position.x < 0 || position.x > resolution.x - size.x)

@@ -11,6 +11,7 @@
 #include "Sprite.h"
 #include "Level.h"
 #include "Ball.h"
+#include "Paddle.h"
 
 class Breakout
 {
@@ -18,10 +19,10 @@ private:
 	GLFWwindow* window = nullptr;
 	glm::vec2 resolution;
 	Font* font;
-	Sprite* sprite[5];
 	Level level;
+	Paddle *paddle;
+	Ball* ball;
 public:
-	static Ball* ball;
 	Breakout(glm::vec2 resolution);
 	~Breakout();
 	void run();
